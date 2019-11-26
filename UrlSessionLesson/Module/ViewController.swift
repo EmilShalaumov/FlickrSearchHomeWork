@@ -108,7 +108,6 @@ class ViewController: UIViewController {
 	}
 
 	private func loadImages(with models: [ImageModel]) {
-		let models = models.suffix(10)
 
 		let group = DispatchGroup()
 		for model in models {
@@ -150,9 +149,11 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: reuseId, for: indexPath)
-		let model = images[indexPath.row]
-		cell.imageView?.image = model.image
-		cell.textLabel?.text = model.description
+        if indexPath.row < images.count {
+            let model = images[indexPath.row]
+            cell.imageView?.image = model.image
+            cell.textLabel?.text = model.description
+        }
 		return cell
 	}
 }
